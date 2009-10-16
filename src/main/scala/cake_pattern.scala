@@ -34,7 +34,7 @@ trait UserServiceComponent {
   }
 }
 
-object ComponentRegistry
+trait ComponentRegistry
   extends UserServiceComponent
   with UserRepositoryComponent {
 
@@ -42,9 +42,7 @@ object ComponentRegistry
   val userService = new UserService
 }
 
-object Application {
-  val userService = ComponentRegistry.userService
-
+object Application extends ComponentRegistry {
   def main(args: Array[String]) {
     val user = userService.create("create", "password")
     val authenticatedUser = userService.authenticate("authenticate", "password")
