@@ -1,16 +1,17 @@
 import org.specs._
+import org.mockito.Matchers._
 
 object UserServiceSpecification extends Specification with TestingEnvironment {
   override val userService = new UserService
 
   "UserService" should {
     "authenticate" in {
-      userRepository.authenticate(User("user", "password")) returns User("user", "password")
+      val stubUser = User("user", "password")
+      userRepository.authenticate(stubUser) returns stubUser
 
       val user = userService.authenticate("user", "password")
 
-      user.username mustEqual "user"
-      user.password mustEqual "password"
+      user mustEqual stubUser
     }
   }
 }
